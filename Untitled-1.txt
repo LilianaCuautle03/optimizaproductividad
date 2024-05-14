@@ -1,0 +1,796 @@
+
+Entonces, ¿cuál es el objetivo de nuestro curso? Acá en el navegador, tenemos nuestro proyecto, que es el Fokus. Es una herramienta de gerenciamiento del tiempo para cuando estamos estudiando o trabajando.
+
+Y el diseño está compuesto básicamente por un texto, una imagen, y más abajo tenemos algunos botones que ahora no están funcionando. Entonces, si hago clic en cada uno de estos botones, nada de lo que se esperaba ocurre.
+
+¿Y qué se espera para nuestro proyecto? Entonces, tenemos un enlace de Figma que estará disponible para ustedes en la sesión anterior a este vídeo, que sea Preparando el ambiente. Entonces, hagan clic allí.
+
+Y acá tenemos las tres pantallas que resumen las interacciones que nuestro usuario va a tender con nuestro proyecto. Entonces, la primera pantalla es la pantalla de enfoque, que es la pantalla que tenemos ahora. Es una pantalla con un fondo morado, un texto, una imagen, los botones, el contador de tiempo.
+
+¿Y cuál es la idea? La idea es que cuando la persona hace clic en el botón de descanso corto, este layout cambia. Entonces, el fondo cambia de morado a verde, el texto cambia, la imagen cambia, ¿sí? Y lo mismo va a pasar cuando la persona haga clic en el botón de descanso largo. Entonces, el fondo cambia de verde a azul, el texto cambia, la imagen cambia, ¿sí?
+
+Entonces, para eso, ¿qué tenemos ahora en Visual Code? ¿Qué tenemos en el código ahora, sí? Tenemos un archivo HTML, que básicamente es nuestro layout. Tenemos una hoja de estilo, nuestro CSS, y tenemos algunas carpetas. Tenemos la carpeta de sonido, que son los sonidos que esperamos que sean agregados a nuestro proyecto. Y la carpeta de imágenes, que tiene imágenes como la de descanso corto, que son las imágenes que esperamos que cambien mientras presionamos algunos de estos botones que hemos visto.
+
+Entonces, tenemos un layout, pero no está funcionando. Queremos que esos botones que hemos visto ejecuten algunas acciones. Entonces, estoy hablando de acciones, así que necesito JavaScript para manipular estos elementos del HTML. ¿Y cómo hago esta manipulación? A través de algo que se llama DOM. ¡Mira, Dios mío, ¿qué es DOM? Esta es una palabra que van a escuchar mucho.
+
+DOM significa, en inglés, Document Object Model, o en español, Modelo de Objeto de Documento, que es una interfaz de programación para HTML. Probablemente, esto no sea muy fácil. Entonces, vamos a agarrar una parte de esta frase que dije, la parte de Objeto.
+
+¿Qué es un objeto? Generalmente, cuando estamos desarrollando un software, tenemos que manejar muchos datos de diferentes tipos o guardarlos, cosas así. Entonces, imagina que estamos desarrollando un software que va a guardar datos de personas, varias personas.
+
+¿Y qué tipo de datos tienen estas personas? Tienen números de documentos, tienen el nombre de las personas, tienen la edad, la profesión, la dirección de estas personas. En lugar de poner estos datos de forma separada, los junto y pongo en un objeto. Entonces, este objeto tiene una jerarquía.
+
+Si voy a buscar a una persona en mi base de datos, ¿voy a buscar por la profesión? Puede haber muchas personas con la misma profesión, pero con el mismo número de documento va a ser más difícil. Entonces, hay algunos datos que son más importantes, están arriba en la jerarquía, que otros.
+
+Y este tipo de pensamiento es muy común en la programación. Es una abstracción que ustedes van a tener que hacer mucho. Entonces, les dejo este reto, que hagan este ejercicio de pensar en las abstracciones.
+
+Entonces, yo tengo una casa. ¿Cuáles son las características de mi casa? Tiene habitaciones, tiene una cocina, ¿cuáles son las características? Tengo un coche, ¿cuáles son las partes de un coche? La casa es un objeto, el coche es un objeto.
+
+Esto será muy importante para ustedes cuando vayan a programar orientados a objetos, ¿sí? Pero ¿por qué estamos hablando de esto ahora? Hablaste de objeto, de jerarquía, ¿qué tiene que ver esto con el DOM, ¿sí?
+
+Entonces, volvemos a nuestro navegador. Entonces, cuando hago clic derecho, le doy inspeccionar y abro esta pestaña de Elements, aparece un documento acá que parece mucho nuestro HTML, pero, de hecho, no es igual a nuestro HTML, es una representación de nuestro HTML. ¿Y por qué una representación?
+
+Entonces, lo que pasa es el siguiente, cuando nuestro navegador interpreta un archivo HTML, no puede interpretar un archivo HTML. Entonces, ¿qué tiene que hacer? Transformarlo en un objeto. Entonces, lo que tenemos aquí es, de hecho, un objeto. Y este objeto tiene una jerarquía.
+
+Mira, si cierro estas etiquetas, body, yo tengo, entonces, el .type, este documento, el HTML, que es la etiqueta raíz, y después tenemos estas dos etiquetas padres, el head y el body. Y cada una de ellas tiene otras etiquetas adentro. Hay una jerarquía.
+
+Este HTML junto con CSS, junto con JavaScript, es el DOM. Y esta jerarquía que están mirando ahora, és conocida como el árbol DOM. Entonces, vamos a Google a buscar esta estructura, árbol DOM.
+
+Entonces, ustedes van siempre ver este tipo de representación. Entonces, el document, es nuestro documento, el HTML, que es la etiqueta raíz, el head y el body, las etiquetas padres y el metatítulo, el h1 y el h2, como los elementos niños.
+
+Muy bien, entonces, aprendimos lo qué es el DOM. Y ahora, todavía no hemos resuelto nuestro problema, que es que nuestros botones no tienen funcionalidad.
+
+Y para que empecemos a pensar cómo podemos resolver este problema, primero tenemos que pensar en cómo agarramos estos botones, para manipularlos. Entonces, vamos a la pestaña Console. Y, ah, mira, cerré la pestaña sin querer. Volvemos aquí, a la pestaña Console.
+
+Y, si escribo acá, documento, me sale nuestro documento HTML. Entonces, HTML, mira, es nuestro documento. Incluso, si yo paso mi cursor allí, las cosas van siendo señaladas. Entonces, si tengo mi documento acá, yo puedo manipular los elementos de mi documento.
+
+Entonces, voy a escribir nuevamente document., y ahora querySelector. Y quiero, con este querySelector, agarrar un botón. Entonces, voy a poner acá, entre paréntesis y comillas, la etiqueta button.
+
+Y mira, cuando presiono Enter, lo que me trae es el primer button que ha encontrado, el botón de enfoque. "Ah, mira, Barbara, pero quería agarrar todos los botones que tenemos acá en la pantalla". No hay problema, podemos colocar document.querySelector. Y entre paréntesis, entre comillas, voy a poner nuevamente la etiqueta button.
+
+Ahora, me trae nuevamente todos los botones, mira. "Ah, pero Barbara, ¿y si quiero buscar estos elementos por las clases CSS que tienen?". Entonces, ¿qué cambia? Podemos nuevamente, document.querySelector. Abrimos los paréntesis, cerramos los paréntesis, abrimos las comillas.
+
+Ahora, lo que cambia es que tengo que poner un punto. Voy a agarrar acá un nombre de una clase, déjame ver acá. app__card-button. Y poner ese nombre acá. Y me da nuevamente el botón. "Ah, pero mira, ¿y si quisiera agarrar ese botón por el ID u otro elemento por ID?". No sé si ese botón tiene un ID. Entonces, si quiero obtener un elemento por ID, ¿qué hacemos?
+
+Entonces, vamos a escribir nuevamente, document.querySelector. Acá, los paréntesis, las comillas. Ahora, vamos a buscar algún elemento que tenga un ID.
+
+Creo que la sección de container va a tener allí. Vamos a ver. Acá tenemos el start-pause. Sí, el ID es el start-pause. Entonces, lo que cambia cuando queremos buscar por ID es que tenemos que poner un hashtag.
+
+En lugar del punto de la clase, ponemos un hashtag y el ID. Entonces, me sale el start-pause. ¿Pero hay otras formas de buscar un ID? Sí. Puedo poner document.getElementById y entre paréntesis, entre comillas, poner acá mi ID, presionar Enter. Y también me devuelve ese botón.
+
+Entonces, estas son las formas en que podemos agarrar un elemento del HTML y empezar a manipularlo en nuestro JavaScript. Y, de hecho, vamos a hacer algunas acciones en el próximo video utilizando estos elementos que aprendimos acá. Nos vemos el próximo video.
+
+
+//Entonces, volvamos a Figma, para pensar cuál va a ser el primer cambio que vamos a hacer. Podemos cambiar los textos, las imágenes, el color de fondo, cuando hagamos clic. Creo que este puede ser el comienzo.
+
+Cuando hagamos clic en uno de los botones que tenemos, que cambie el color de fondo. ¿Y cuál etiqueta de nuestro HTML tiene este color de fondo? La etiqueta <html>. Entonces, tenemos este selector acá, data-contexto, este atributo, que tiene el valor de enfoque que está en nuestro CSS.
+
+Tenemos un data-contexto con el valor de enfoque, uno con descanso-corto, uno con descanso-largo. Si miramos ahora en nuestro navegador, nuestro color de fondo es morado.
+
+Entonces, si yo, por ejemplo, cambio el valor del data-contexto a descanso-corto en nuestro HTML, lo que va a pasar es que el color se vuelve verde. Entonces, este atributo es el que queremos cambiar.
+
+¿Y cómo lo vamos a hacer? Vamos a crear un archivo JS. Entonces, script.js. Vamos a importarlo en nuestro HTML. Hay una nueva forma de hacerlo, que es ponerlo acá, después del último enlace, escribir el <script>, poner el source, como siempre hacemos, y después poner un defer.
+
+<script src="./script.js" defer></script>
+
+¿Por qué? Este defer va a hacer con que, primero, todo el archivo HTML sea leído, y después que el archivo JS sea leído. Entonces, no tendremos el problema de que el sitio no cargue. Y es una nueva forma que podemos usar ahí.
+
+Ahora, ¿qué vamos a hacer? Vamos a empezar, entonces, a agarrar nuestros elementos y manipularlos con el DOM. El primer elemento que vamos a agarrar, entonces, es esta etiqueta <html> para cambiar el fondo.
+
+Entonces, ¿qué vamos a hacer? Vamos a crear una variable llamada const html y vamos a usar lo que aprendimos en nuestra última clase. Entonces, vamos a usar el document.querySelector y vamos a usar la etiqueta html.
+
+¿Y qué queremos, además del fondo cambiando? Queremos hacer con que nuestros botones ejecuten algunas acciónes. Cuando hago clic en el botón de descanso corto, el fondo cambia. Entonces, también vamos a agarrar estos botones.
+
+Entonces, vamos a crear una constante, voy a llamarla botonCorto y hacemos document.querySelector y vamos a nuestro HTML para verificar cuál es el nombre de la clase de nuestro botón. Entonces, botón corto, app__card-button--corto.
+
+No olviden poner el punto porque es una clase CSS. Y también queremos, primero, hacer este cambio del botón de enfoque al botón corto, del morado para el verde. Entonces, vamos a crear una variable para el botón de enfoque.
+
+Entonces, const botonEnfoque = document.querySelector, abrimos los paréntesis, las comillas, ponemos el punto y nuevamente vamos a nuestro HTML agarrar el nombre de la clase, app__card-button--enfoque.
+
+Y ahora, ¿qué vamos a hacer con esta variable que hemos creado? Entonces, vamos a nuestro proyecto. Cuando yo haga clic en el botón de descanso corto, el fondo se vuelve verde y cuando yo quiera hacer clic nuevamente en el botón de enfoque, el fondo vuelva a morado.
+
+Entonces, tengo que estar escuchando cuando hagan un clic. Y para esto, tenemos un método que se llama addEventListener. Entonces, voy a poner, por ejemplo, acá, botonCorto. Y usar este addEventListener que va a quedarse ahí escuchando un evento que va a ocurrir.
+
+Tenemos varios tipos de eventos. Ustedes busquen allí en la documentación los eventos que tenemos. Pero el evento que vamos a escuchar ahora es el evento de click. Cuando la persona haga clic, vamos a ejecutar alguna acción que vamos a poner acá.
+
+Ahí vamos a abrir una arrow function (() => {}). Si ustedes no conocen lo que es una arrow function, les voy a dejar allí, en Para saber más, un artículo sobre arrow function. Es básicamente una forma más fácil de escribir una función.
+
+¿Y qué vamos a hacer ahí entre las llaves? Vamos a poner html.setAttribute. Y abrir las llaves. ¿Qué hace este setAttribute? Va a agarrar un valor que tenemos ahora y va a sustituirlo por el valor que queremos.
+
+Entonces, acá vamos a poner, entre comillas, data-contexto, que es el valor que tenemos ahora. Y cuando la persona haga clic, yo quiero que el data-contexto del botón de descanso corto cambie para el valor… Vamos ahí a mirar en nuestro CSS el valor descanso-corto. Incluso yo voy a copiar esto y pegar para no cometer ningún error.
+
+Y vamos a hacer lo mismo con el botón de enfoque. Entonces, botonEnfoque.addEventListener. El evento que vamos a esperar escuchar es el click. Utilizamos una arrow function. A todo momento me sale allí este mensaje. Y abrimos las llaves y ponemos html.setAttribute nuevamente. Y ponemos data-contexto. Y después, cuando la persona haga clic en botón de enfoque, queremos ver el color del fondo de enfoque.
+
+Ustedes miren que también todas las veces que yo estoy digitando, van apareciendo estos mensajes allí. Y a veces no es un poco cómodo. Pero es importante porque estos mensajes son las explicaciones de lo que está pasando. Pero es importante porque estos mensajes son las explicaciones de nuestros métodos, de lo que estamos utilizando, de la documentación. Es una forma de ustedes aprender también.
+
+Pero como, por ejemplo, mira, yo estoy utilizando este método, no sé muy bien para lo que sirve. Entonces, pongan el cursor allí y lean lo que este método hace. Entonces, ¿lo que esperamos? Que cuando yo haga clic en el botón corto, de descanso corto, el fondo se vuelva verde. Y cuando yo haga clic nuevamente en el botón de enfoque, el color del fondo vuelva a morado. Vamos a ver si realmente esto pasó en nuestro proyecto.
+
+Entonces, voy a ir a nuestro navegador, hacer clic en el descanso corto, el momento de la verdad. Mira, está verde. Muy bien, entonces funcionó. Ahora vamos nuevamente con el botón de enfoque. Se volvió morado. Entonces, está funcionando. Incluso, yo se les voy a dejar un reto. Que hagan esta parte del descanso largo. Falta este cambio para el color de fondo azul. Entonces, hagan esta parte también y nos vemos en el próximo video. 
+
+
+const html = document.querySelector('html');
+const botonCorto = document.querySelector('.app__card-button--corto');
+const botonEnfoque = document.querySelector ('.app__card-button--enfoque');
+const botonLargo = document.querySelector('.app__card-button--largo');
+
+
+
+
+botonCorto.addEventListener('click', () => {
+    html.setAttribute('data-contexto','descanso-corto');
+});
+
+botonEnfoque.addEventListener('click', () => {
+    html.setAttribute('data-contexto','enfoque');
+});
+
+botonLargo.addEventListener('click', () => {
+    html.setAttribute('data-contexto', 'descanso-largo');
+});
+
+
+// Ahora ya podemos cambiar el color de fondo de todos los botones y vamos a continuar con nuestros cambios. Creo que el próximo cambio que podemos hacer es el de las imágenes, es decir, cambiar al hombre morado por la mujer verde y luego por la mujer azul.
+
+Entonces, vamos a nuestro VSCode y primero revisamos nuestro HTML. Aquí tenemos una etiqueta llamada image, que es la imagen del hombre morado. Entonces, podemos tomar esta etiqueta por la clase app_image.
+
+¿Y qué vamos a hacer con esta clase? Lo mismo que hicimos con las otras. Entonces, vamos a crear una variable, la llamaremos banner, y haremos document.querySelector. Y colocaremos comillas, punto y el nombre de la clase.
+
+¿Y ahora qué vamos a hacer? Queremos que la imagen cambie como cambiamos el color de fondo, entonces podemos hacer lo mismo que hicimos con el color de fondo, utilizar el setAttribute. Entonces, aquí en el botonCorto voy a poner banner.setAttribute, y el setAttribute va a cambiar un atributo.
+
+Vamos a volver a nuestro HTML, tenemos el atributo src, es este atributo el que queremos que cambie, debido al camino que será distinto para cada una de las imágenes. Entonces, voy a poner src aquí, y luego voy a colocar el camino de la imagen aquí en mi computadora. Aquí tengo una carpeta de imágenes, y tengo la imagen de descanso-corto. Voy a poner entonces, punto, barra, imágenes, barra, descanso-corto, punto, png.
+
+Voy a repetir este mismo proceso con el botón de enfoque, solo cambiando el camino de descanso-corto a enfoque. Y también hacer lo mismo con el botonLargo, cambiando de descanso-corto a descanso-largo.
+
+Creo que eso es todo, vamos a nuestro navegador a ver si los cambios realmente ocurren. Voy a hacer clic en Descanso corto, vea que hay una imagen, voy a hacer clic en Descanso largo, la imagen también cambia.
+
+Muy bien, logramos lo que queríamos, pero creo que podemos hacer algunos otros cambios, porque, mira, estamos haciendo lo que necesitamos, pero estamos repitiendo algunas líneas de código varias veces. Y generalmente en programación, cuando repetimos líneas, siempre hay una manera más fácil y mejor de hacerlo. ¿Y cuál sería esta manera? Aquí, podríamos crear una función.
+
+Entonces, vamos a hacerlo. Creamos una función, function cambiarContexto(). Y esta función va a recibir un contexto como valor, como descanso-corto, enfoque, descanso-largo.
+
+Entonces, voy a poner un parámetro aquí, llamado contexto. ¿Y qué vamos a poner dentro de esta función? Vamos a tomar estas líneas de html.setAttribute, banner.setAttribute, y ponerlas ahí, en la function, y hacer algunos cambios con ellas.
+
+Entonces, en la primera línea, la de html.setAttribute, el data-contexto va a ser el mismo para el botón de enfoque, descanso-corto, descanso-largo. Lo que va a cambiar es el descanso-largo. Aquí, quiero utilizar esta variable contexto.
+
+¿Y en el banner, qué cambia? En la src, nada cambia. Lo que cambia es el camino. En lugar de poner las comillas simples, voy a poner las comillas invertidas. Voy a poner el camino allí dentro y utilizar las template strings.
+
+Entonces, en esta parte que es específica de descanso-largo, y que quiero que sirva para el descanso-largo, para el enfoque y descanso-corto, voy a poner un símbolo de dólar, llaves y escribir contexto.
+
+Cuando escribo las cosas de esta manera, template string, mi código entiende que estoy escribiendo, en esta parte de HTML, una parte de JavaScript. Esto es una variable que va a cambiar.
+
+botonCorto.addEventListener('click', () => {
+    html.setAttribute('data-contexto','descanso-corto');
+    banner. setAttribute('src','./imagenes/descanso-corto.png')
+});
+
+botonEnfoque.addEventListener('click', () => {
+    html.setAttribute('data-contexto','enfoque');
+    banner. setAttribute('src','./imagenes/enfoque.png')
+});
+
+botonLargo.addEventListener('click', () => {
+    html.setAttribute('data-contexto', 'descanso-largo');
+    banner. setAttribute('src','./imagenes/descanso-largo.png')
+});
+
+function cambiarContexto (contexto){
+    html.setAttribute('data-contexto', contexto);
+    banner. setAttribute('src',`./imagenes/${contexto}.png`)
+}
+
+
+Ahora tenemos nuestra función, que puede ayudarnos a eliminar las partes repetidas en nuestro código. ¿Cómo la utilizamos?
+
+Vamos a copiar la función y pegarla ahí, por ejemplo, en el botonCorto. Eliminé las dos líneas. Tengo que pasar un contexto, que es el parámetro que nuestra función está esperando. ¿Cuál será el contexto aquí? descanso-corto.
+
+Voy a hacer lo mismo con el botonEnfoque, cambiando descanso-corto por enfoque, y lo mismo con el botonLargo, cambiando descanso-corto por descanso-largo.
+
+Vamos a nuestro navegador para ver si, de hecho, nuestras actualizaciones han resuelto nuestro problema. Todo va muy bien.
+
+En el próximo vídeo, continuaremos haciendo los cambios que necesitamos. Podemos cambiar este texto, que es algo que cambia de un fondo a otro. Entonces, nos vemos en el próximo vídeo.
+
+botonCorto.addEventListener('click', () => {
+    cambiarContexto('descanso-corto')
+});
+
+botonEnfoque.addEventListener('click', () => {
+    cambiarContexto('enfoque')
+});
+
+botonLargo.addEventListener('click', () => {
+    cambiarContexto('descanso-largo')
+});
+
+function cambiarContexto (contexto){
+    html.setAttribute('data-contexto', contexto);
+    banner. setAttribute('src',`./imagenes/${contexto}.png`)
+}
+
+
+//Ahora vamos a utilizar los textos que tenemos en Figma para hacer los cambios en el código.
+
+Vamos a nuestro HTML. Aquí tenemos este h1, que tiene una clase llamada app__title, donde están escritos los textos que queremos cambiar. Por lo tanto, es esta clase la que vamos a manipular.
+
+Vamos a nuestro script y vamos a crear una variable llamada titulo. Y vamos a hacer nuestro document.querySelector, abrir los paréntesis, las comillas, el punto y poner ahí el app__title.
+
+Y ahora, ¿cómo vamos a hacer este cambio de textos? Tenemos tres textos y queremos que cambien cuando presionamos cada uno de los botones.
+
+Vamos a nuestra función cambiarContexto y vamos a utilizar un switch. Entonces, si el valor no es este, vamos a cambiarlo por el otro valor.
+
+En lugar de key vamos a utilizar contexto, como estábamos utilizando en las otras partes de nuestro código. Y en este value, el primer case, vamos a poner enfoque. Y poner titulo, nuestra variable, punto, innerHTML.
+
+Vamos a incluir en nuestro JavaScript un texto y un HTML. Y cuando sea este texto, vamos a utilizar las comillas y poner el texto que ya tenemos aquí: "Optimiza tu productividad".
+
+Ahora vamos a hacer lo mismo con los otros valores que tenemos. Entonces, tenemos que tener un case con valor de descanso-corto. Y vamos a abrir el titulo.innerHTML y las comillas invertidas. Y ahora vamos a tomar el texto: "¿Qué tal tomar un respiro? Haz una pausa corta.".
+
+Voy copiar también esta clase que tenemos aquí, el strong del enfoque, y podemos seguir, entonces, después de poner un break.
+
+Para nuestro próximo valor, que es el case de descanso-largo. Y vamos nuevamente a tomar este texto en Figma. Ponemos aquí titulo.innerHTML. Abrimos las comillas invertidas. Y ponemos nuestro texto ahí. Ahora vamos a tomar nuevamente la clase que tenemos y cerrar esta etiqueta. Muy bien.
+
+Entonces, ¿cómo va a funcionar? La idea es que vamos a tomar el contexto. Entonces, yo hago clic en el botón de Descanso corto. Muy bien. Voy a enviar a nuestra función el valor descanso-corto, que es el contexto. Entonces, va a pasar por este case enfoque y va a llegar al descanso-corto, que es el valor. Y lo mismo va a pasar todas las veces que yo haga clic en alguno de estos botones.
+
+Y este innerHTML hace que yo incluya en nuestro JavaScript un código HTML, un texto junto al código HTML.
+
+Vamos a ir a nuestra función. Voy a hacer clic en el botón de Descanso corto. Cambia el texto, cambia la imagen, cambia el fondo. Muy bien, ¿no? También el Descanso largo. Todo está cambiando.
+
+Entonces, hemos avanzado muchísimo. Y vamos a seguir avanzando más en nuestro próximo video.
+
+const html = document.querySelector('html');
+const botonCorto = document.querySelector('.app__card-button--corto');
+const botonEnfoque = document.querySelector ('.app__card-button--enfoque');
+const botonLargo = document.querySelector('.app__card-button--largo');
+const banner = document.querySelector('.app__image');
+const titulo = document.querySelector( '.app__title');
+
+
+botonCorto.addEventListener('click', () => {
+    cambiarContexto('descanso-corto')
+});
+
+botonEnfoque.addEventListener('click', () => {
+    cambiarContexto('enfoque')
+});
+
+botonLargo.addEventListener('click', () => {
+    cambiarContexto('descanso-largo')
+});
+
+function cambiarContexto (contexto){
+    html.setAttribute('data-contexto', contexto);
+    banner. setAttribute('src',`./imagenes/${contexto}.png`)
+
+    switch (contexto) {
+        case "enfoque":
+            titulo.innerHTML = `
+            Optimiza tu productividad,<br>
+                <strong class="app__title-strong">sumérgete en lo que importa.</strong>
+            `
+
+            break;
+        case "descanso-corto":
+            titulo.innerHTML= `
+            ¿Qué tal tomar un respiro?
+                <strong class="app__title-strong">¡Haz una pausa corta!.</strong>
+            `
+
+            break;
+            case "descanso-largo":
+                titulo.innerHTML= `
+                Hora de volver a la superficie 
+                 <strong class="app__title-strong">Haz una pausa larga.</strong>
+                `
+         default:
+            break;
+
+    }
+}
+
+
+
+//Ahora tenemos nuestro sitio funcionando, realizando algunas de las cosas que queremos. Pero si observan aquí, cuando hago clic en Descanso corto, Descanso largo, este resaltado, este fondo más claro que está en el botón de Enfoque, no se aplica a los otros botones. Entonces parece que siempre estoy haciendo clic en este botón de Enfoque, y eso queremos cambiar.
+
+Entonces vamos a nuestro VS Code y revisamos un poco nuestro HTML. Aquí tenemos los botones y en el botón de Enfoque tenemos este active. Este active es lo que hace que este fondo resaltado aparezca para el botón de Enfoque.
+
+Entonces, por ejemplo, si lo saco de aquí y lo pongo en el botón Corto, verán en el navegador que el Descanso corto ahora tiene el resaltado.
+
+Quiero que todos los botones tengan el resaltado. Entonces voy a sacar esto de aquí y voy a tomar una clase que sea igual para todos los botones, que es esta app__card-button, utilizada por todos los botones.
+
+Y voy a crear una variable en nuestro JavaScript llamada botones, hacer un document.querySelector, abrir las llaves, las comillas, el punto y poner el app__card.
+
+Ah, mira, pero aquí hay una cosa distinta. Yo estaba utilizando siempre el querySelector. Ahora quiero utilizar el querySelectorAll, porque quiero agarrar todos los botones que tenemos, y hacer algunas cosas con todos los botones que tenemos.
+
+¿Y ahora qué hacemos? Lo primero es ir al botonCorto, y voy a hacer lo mismo con todos los botones, escribir botonCorto y utilizar una propiedad que se llama classList. Esta propiedad nos ayuda a manipular algunos elementos, agregando algunas cosas, removiendo cosas. Pueden poner un punto ahí, y van a ver los métodos que están disponibles para esta propiedad.
+
+Quiero que cada uno de los botones tenga este resaltado. Este resaltado sea agregado a cada uno de los botones. Entonces, voy a utilizar el método add. Y ahora abro los paréntesis, y lo que quiero agregar ahí es el active.
+
+Ahora voy a repetir este mismo proceso en cada uno de los botones. Entonces, solo voy a copiar y pegar esto, y cambiar el nombre de los botones. Entonces, aquí es botonEnfoque. Y después hacer lo mismo en botonLargo.
+
+Muy bien, entonces, lo que esperamos es que cuando haga clic ahí en el navegador, todos los botones tengan resaltado. Enfoque está con resaltado, Descanso corto con resaltado, Descanso largo con resaltado.
+
+Pero, también quiero que cuando haga clic en uno de estos botones, los otros botones se queden sin resaltado. Entonces, ¿cómo lo hacemos?
+
+Vamos a nuestra función nuevamente, y vamos a utilizar la variable que hemos creado, la variable botones. Y vamos a hacer punto forEach, que es un bucle para cada uno de los botones que tenemos.
+
+¿Qué vamos a hacer? Vamos a crear una función anónima, que va a recibir un parámetro, que es contexto. Ya lo conocemos. Y vamos a abrir las llaves. Y ahora, ¿qué vamos a hacer? Vamos a hacer contexto.classList. Y recuerdan que hay un montón de métodos que podemos utilizar para esta propiedad classList.
+
+Ahora quiero que cuando haga clic en uno de los botones, los otros sean limpiados. Se debe remover el resaltado de los otros botones. Entonces, voy a utilizar el método remove('active').
+
+Entonces, todas las veces que, por ejemplo, haga clic en el botón Corto, lo que va a pasar es que va a llamar esta función cambiarContexto, va a hacer todo este proceso de limpiar los otros botones que no fueron clicados y hacer el resto del código que ya hemos escrito.
+
+Entonces, vamos a ver ahí en el navegador si de hecho ha funcionado. Voy a hacer clic en el botón de Enfoque. Mira, está resaltado. Ahora es el momento de la verdad. Si hago clic en Descanso corto, ¿cambiará? ¿El resaltado se irá del Enfoque? Mira, se fue. Muy bien, vamos a hacer la última prueba con Descanso largo. Está funcionando.
+
+Nos vemos en nuestra próxima clase para hablar sobre cómo vamos a agregar los sonidos a nuestro proyecto.
+
+
+const html = document.querySelector('html');
+const botonCorto = document.querySelector('.app__card-button--corto');
+const botonEnfoque = document.querySelector ('.app__card-button--enfoque');
+const botonLargo = document.querySelector('.app__card-button--largo');
+const banner = document.querySelector('.app__image');
+const titulo = document.querySelector( '.app__title');
+const botones = document.querySelectorAll('.app__card-button');
+
+
+
+botonCorto.addEventListener('click', () => {
+    cambiarContexto('descanso-corto')
+    botonCorto.classList.add('active')
+});
+
+botonEnfoque.addEventListener('click', () => {
+    cambiarContexto('enfoque')
+    botonEnfoque.classList.add('active')
+});
+
+botonLargo.addEventListener('click', () => {
+    cambiarContexto('descanso-largo')
+    botonLargo.classList.add('active')
+});
+
+function cambiarContexto (contexto){
+    botones.forEach (function(contexto){
+        contexto.classList.remove('active')
+    
+    })
+    
+    html.setAttribute('data-contexto', contexto);
+    banner. setAttribute('src',`./imagenes/${contexto}.png`)
+
+    switch (contexto) {
+        case "enfoque":
+            titulo.innerHTML = `
+            Optimiza tu productividad,<br>
+                <strong class="app__title-strong">sumérgete en lo que importa.</strong>
+            `
+
+            break;
+        case "descanso-corto":
+            titulo.innerHTML= `
+            ¿Qué tal tomar un respiro?
+                <strong class="app__title-strong">¡Haz una pausa corta!.</strong>
+            `
+
+            break;
+            case "descanso-largo":
+                titulo.innerHTML= `
+                Hora de volver a la superficie 
+                 <strong class="app__title-strong">Haz una pausa larga.</strong>
+                `
+         default:
+            break;
+
+    }
+}
+
+
+//Entonces, ¿qué vamos a hacer ahora? En nuestro navegador, nuestro proyecto tiene este input de Música que, cuando hago clic, se vuelve morado. Y la idea es que suene alguna música para que nos relajemos mientras estudiamos o trabajamos, ¿de acuerdo?
+
+Pero ahora no está haciendo nada. Entonces, vamos a cambiar eso en nuestro VSCode. Aquí en el index.html tenemos un input de Música y él tiene un ID. Será a través de este ID que manipularemos este elemento.
+
+Entonces, en el script vamos a crear una variable. La llamaremos inputEnfoqueMusica y haremos lo que siempre hacemos. Entonces, document.querySelector abrir los paréntesis, las comillas y aquí en lugar de poner el punto de clase, vamos a poner el hashtag porque estamos utilizando un ID.
+
+Pero yo, entonces, aquí tengo una carpeta de sonidos en mi proyecto y quiero que estos sonidos suenen, ¿de acuerdo? Por ejemplo, voy a poner aquí para que escuchen este Luna Rise Parte 1. Muy bien, pero ¿cómo lo utilizo?
+
+En JavaScript, incluso lo puse aquí en una pestaña, tenemos este objeto de Audio y es el que vamos a utilizar. Entonces, este objeto tiene algunos métodos, como play y pause, que vamos a utilizar, tiene otras propiedades, como la propiedad de loop, que también vamos a utilizar.
+
+Entonces, será a través de este objeto que vamos a poner sonidos en nuestro proyecto, ¿de acuerdo?
+
+Aquí en JavaScript, vamos a crear otra variable y la llamaremos musica y vamos a utilizar el objeto. Entonces, new Audio, y pasarle el camino del sonido que queremos utilizar, que es el luna-rise-part-one.mp3, ¿de acuerdo? Entonces, punto, barra, sonidos, barra, luna-rise-part-one.mp3. Muy bien.
+
+¿Y cuál es la idea en nuestro proyecto? Cuando hago clic en este input de música, algo está escuchando para ver que hubo un cambio, ¿de acuerdo? Si escucho, estoy hablando de addEventListener.
+
+Entonces, nuevamente voy a utilizar con inputEnfoqueMusica, punto, addEventListener. Y aquí, en lugar de poner click, dije que "cuando el input cambia", entonces voy a poner aquí, change. Entonces, escucha cuando cambia este input. Y vamos a utilizar una arrow function y hacer algo aquí dentro.
+
+¿Qué es eso? Vamos a hacer una condición. Entonces, si (if) musica está pausada. Entonces, para que suene la música primero, tiene que estar pausada, ¿de acuerdo? Entonces, si está paused, vamos a decir que la musica suene, play. ¿Y qué vamos a hacer en el else? Vamos a decir musica.pause.
+
+Aquí estamos utilizando algunos métodos de este objeto Audio que tenemos en JavaScript.
+
+Vamos a nuestro navegador a ver si realmente funcionó. Voy a hacer clic y debería sonar nuestra música. Muy bien, sonó la música.
+
+Pero hay un último ajuste que tenemos que hacer. Porque, mira, esta música que pusimos tiene 6 minutos. ¿Y si la persona quiere escuchar por 16 minutos, cómo lo va a hacer?
+
+Entonces, también tenemos en este objeto Audio una propiedad que se llama loop. Quiero que esta música se reproduzca en loop. Entonces, decimos musica.loop igual a true. Ahora sí, la persona puede escuchar esta música por el tiempo que quiera.
+
+Y eso es todo lo que tenemos para este video. Nos vemos en el próximo.
+
+const titulo = document.querySelector( '.app__title');
+const botones = document.querySelectorAll('.app__card-button');
+const inputEnfoqueMusica = document.querySelector('#alternar-musica')
+const musica = new Audio('./sonidos/luna-rise-part-one.mp3')
+
+musica.loop = true
+
+
+inputEnfoqueMusica.addEventListener('change', ()=> {
+    if(musica.paused){
+        musica.play()   
+    }else{
+        musica.pause()
+    }
+})
+
+
+botonCorto.addEventListener('click', () => {
+    cambiarContexto('descanso-corto')
+    botonCorto.classList.add('active')
+})
+
+
+//Entonces, mirando a nuestro Figma, podemos verificar que nos hace falta un elemento esencial en nuestro proyecto, que es el temporizador que realiza la cuenta regresiva cuando la persona hace clic en el botón de enfoque, descanso corto o largo.
+
+Por ejemplo, la cuenta empieza en 5 minutos para el descanso corto, 15 minutos para el descanso largo y 25 minutos para el enfoque.
+
+Entonces, ¿qué vamos a hacer ahora en nuestro video? Vamos a empezar a trabajar en esto. Primero, vamos a declarar una variable utilizando let, llamada tiempoTranscurridoEnSegundos. Podemos poner cualquier número acá, entonces, vamos a poner 5. Piensen que el descanso corto dura 5 segundos.
+
+Después, ¿qué vamos a hacer? Vamos a crear otra función debajo de la función cambiarContexto. Vamos a guardar esta función en una variable, entonces, será const cuentaRegresiva, vamos a abrir una arrow function (() => {}).
+
+Después, ¿qué hacemos entre las llaves? Vamos a utilizar esta variable de tiempoTranscurridoEnSegundos y hacer menos igual 1, o sea, queremos restar un segundo de esta variable.
+
+Haremos un console.log para ver si de hecho esto está funcionando, entonces, imprimamos esto en la consola. Voy a escribir acá dentro "Temporizador", entre comillas, dos puntos. Después de las comillas voy a poner un signo de más (+) y utilizar tiempoTranscurridoEnSegundos.
+
+Déjame poner un espacio entre el más y todo esto para ser más organizado. ¿Y qué estoy haciendo acá? Una concatenación, entonces, yo agarré una cadena que es "Temporizador" y la uní a una variable JavaScript.
+
+Muy bien, ¿qué nos falta ahora? Vamos a volver un momento a nuestro navegador y pensar en nuestro flujo. Yo quiero que cuando yo haga clic en comenzar, esta cuenta regresiva empiece. Entonces, tenemos que agarrar este botón de "Comenzar" y manipularlo.
+
+Entonces, ¿qué vamos a hacer? Vamos a ir a nuestro index.html, acá tenemos el botón. Esta etiqueta <button>, que es el botón de comenzar. Y tenemos este ID, start-pause. Vamos a utilizarlo para hacer algo que hicimos muy poco en este curso. Vamos a utilizar el document.querySelector.
+
+Entonces, acá arriba voy a declarar una variable, utilizando const, la voy a llamar botonIniciarPausar, porque es el botón que inicia. Pero también podemos pausarlo. Y hacemos el document.querySelector, abrimos paréntesis, ponemos comillas, y utilizamos hashtag (#) por cuenta del ID start-pause que hemos copiado.
+
+Cuando yo haga clic en aquel botón de comenzar, yo quiero estar ahí escuchando este clic, escuchando este evento. Si hablo de escuchar, quiero utilizar un addEventListener. Abajo de la función cuentaRegresiva que creamos, vamos a hacer este addEventListener.
+
+Escribimos botonIniciarPausar.addEventListener. Entre paréntesis y comillas, ¿cuál es el evento que queremos escuchar? Un click. Y vamos a llamar ahí cuentaRegresiva.
+
+Ahora sí podemos volver al navegador para verificar si realmente funciona. Hacemos clic derecho, seleccionamos "Inspeccionar", nos abre la consola.
+
+Ahora voy a hacer clic en el botón de comenzar. Menos uno, entonces "Temporizador: 4", "Temporizador: 3", "Temporizador: 2", "Temporizador: 1". Está funcionando, pero no muy bien. Está funcionando porque yo estoy haciendo clic en el botón de comenzar todas las veces. Pero lo que quiero es que esta cuenta regresiva sea hecha de forma automática, sin que yo tenga que estar ahí todo el tiempo.
+
+Entonces, es esto en lo que vamos a trabajar ahora. Primero, ¿qué vamos a hacer? Crear una variable, después de la variable tiempoTranscurridoEnSegundos, utilizando let también, y darle el nombre de idIntervalo. Vamos a atribuirle el valor de null, lo que va a cambiar muy pronto.
+
+Acá abajo, donde pusimos este addEventListener para el botón iniciar, vamos ahora a crear una función, function iniciarPausar. ¿Por qué iniciarPausar? Porque es el botón que puede iniciar o pausar. Utilizamos paréntesis y llaves.
+
+Acá, vamos a utilizar esta variable que hemos creado recientemente, que es idIntervalo. Entonces, asignamos idIntervalo igual a setInterval, que es un método de JavaScript que utilizamos para establecer el intervalo en el que determinada acción va a ocurrir.
+
+En nuestro caso, queremos el intervalo que va a transcurrir en esta cuenta regresiva. Para eso, vamos a utilizar la función cuentaRegresiva que hemos creado. Después, ponemos una coma, y tenemos que especificar cuál es el intervalo. ¿Queremos un intervalo de un segundo, verdad? Aquí tenemos que poner milisegundos, entonces, 1 segundo son 1000 milisegundos.
+
+Ahora solo nos falta llamar a esta función iniciarPausar en la función de cuentaRegresiva. Ahora sí, creo que todo está correcto.
+
+Vamos a nuestro navegador, hagamos la prueba nuevamente, voy a hacer clic en "Comenzar". Y funciona, pero no del todo, porque ahora está en números negativos. El temporizador no se detiene.
+
+¿Y por qué esto está ocurriendo? Es que setInterval necesita un punto de parada, que es el clearInterval, que es lo que vamos a ver en nuestro próximo video.
+
+const botones = document.querySelectorAll('.app__card-button');
+const inputEnfoqueMusica = document.querySelector('#alternar-musica')
+const musica = new Audio('./sonidos/luna-rise-part-one.mp3')
+const botonIniciarPausar = document.querySelector ('#start-pause')
+
+let tiempoTransucrridoEnSegundos = 5
+let idIntervalo = null
+
+musica.loop = true
+
+
+
+ break;
+            case "descanso-largo":
+                titulo.innerHTML= `
+                Hora de volver a la superficie 
+                 <strong class="app__title-strong">Haz una pausa larga.</strong>
+                `
+         default:
+            break;
+
+    }
+}
+
+const cuentaRegresiva = () => {
+    IniciarPausar()
+    tiempoTransucrridoEnSegundos -= 1
+    console.log("Temporizador:" + tiempoTransucrridoEnSegundos)
+}
+
+botonIniciarPausar.addEventListener('click', cuentaRegresiva )
+
+function IniciarPausar(){
+    idIntervalo = setInterval(cuentaRegresiva,1000)
+}
+
+
+
+
+//Antes de utilizar clearInterval, vamos a hacer algunos ajustes en nuestro código. Quiero sacar esta llamada iniciarPausar de nuestra función de cuentaRegresiva. Y en lugar de cuentaRegresiva que está en este addEventListener del botón iniciarPausar, voy a colocar la función iniciarPausar.
+
+Vamos de nuevo a nuestro navegador, no va a cambiar nada. Cuando hago un clic, comienza este flujo que no se detiene. Y una cosa importante a considerar, queremos que el temporizador se detenga en el número 0. ¿Entonces qué podemos hacer? Podemos hacer un if.
+
+En la función de cuentaRegresiva ponemos if tiempoTranscurridoEnSegundos es menor o igual a 0, ¿qué va a pasar? Abrimos las llaves, podemos poner un alert. Y entre comillas poner 'Tiempo final'. Y después de este alert, podemos poner un return sin nada. Este return sin nada más es para interrumpir el flujo de la aplicación, entonces vamos a ver si realmente esto va a ocurrir.
+
+Vamos a hacer clic en comenzar nuevamente, temporizador 4, 3, 2, 1, 0. Me aparece el alert, incluso escribí 'Tiempo final' incorrectamente, pero mira, está pasando algo. Estamos en el camino, pero todavía necesitamos dar algunos pasos más, porque esta ventana emergente del alert nunca se cierra.
+
+Entonces volvamos a nuestro código, incluso voy a corregir este 'Tiempo final'. ¿Y qué vamos a hacer? Vamos a crear una función, function reiniciar. Acá adentro vamos a utilizar el clearInterval. Recuerdan que yo había dicho, el clearInterval interrumpe el flujo del setInterval. Se le vamos a pasar el idIntervalo. Después de eso vamos a decirle idIntervalo igual a nulo.
+
+Ahora solo nos falta llamar la función reiniciar. Entonces la vamos a llamar en la función de cuentaRegresiva, antes del alert.
+
+Vamos a ver si realmente esto ha funcionado en nuestro navegador. Voy a presionar el botón de comenzar… 4, 3, 2, 1, 0. Ahora me aparece la ventana emergente. Vamos a ver si aparece nuevamente. No, interrumpió el flujo.
+
+Logramos lo que necesitábamos, pero miren también hay que hacer un botón de pausar. Imagínense que quiero pausar el temporizador en el número 3, este botón también sirve para esto, incluso es por esto que puse el nombre iniciarPausar en la función.
+
+Entonces, ¿qué vamos a hacer acá? Vamos a utilizar en esta función un if para decidir si el idIntervalo tiene un número ahí, ¿qué vamos a hacer? Vamos también a utilizar la función de reiniciar, que ya hemos creado, y darle un return.
+
+Vamos de nuevo a nuestro navegador, voy a presionar "Comenzar". En el 3, voy a presionarlo nuevamente y mira, paró nuestra función. Y miren, si lo presiono nuevamente, vuelve a funcionar, entonces realmente está funcionando como queríamos.
+
+¿Y qué vamos a hacer a continuación? Esto ahora es un reto que les voy a dejar. Aquí en la carpeta "sonidos" tenemos algunos sonidos. Cuando la persona presione play, quiero que este sonido suene. Cuando la persona presione pause, otro sonido debe reproducir. Y después, cuando el tiempo de la persona está terminando, quiero que el sonido de beep suene.
+
+¿Qué ustedes van a hacer? Van a encontrar un modo, pensando en todo lo que hemos aprendido hasta el momento, de hacer que estos sonidos sean incluidos en las acciones que describí para ustedes. Incluso vamos a tener ahí una sección de desafío para que comprendan mejor este reto que les voy a dejar. Nos vemos en el próximo video.
+
+
+const cuentaRegresiva = () => {
+    if(tiempoTransucrridoEnSegundos <= 0){
+        reiniciar ()
+        alert('Tiempo final')
+        return
+    }
+
+    tiempoTransucrridoEnSegundos -= 1
+    console.log("Temporizador:" + tiempoTransucrridoEnSegundos)
+}
+
+botonIniciarPausar.addEventListener('click', iniciarPausar )
+
+function iniciarPausar(){
+    if(idIntervalo){
+        reiniciar()
+        return
+    }
+    idIntervalo = setInterval(cuentaRegresiva,1000)
+}
+
+function reiniciar (){
+    clearInterval(idIntervalo)
+    idIntervalo = null 
+}
+
+// Para el desafío, aquí tienes algunas sugerencias:
+
+Los archivos de audio utilizados en este desafío se encuentran en la carpeta "sonidos" del proyecto. Los nombres de los archivos son "beep.mp3", "play.wav" y "pause.mp3".
+En el archivo script.js, crea una instancia del objeto Audiopara cada archivo de audio y guárdalos en variables.
+Utiliza cada variable junto con el método play() según las funcionalidades del proyecto.
+El archivo de audio "beep.mp3" debe sonar cuando el temporizador llegue a cero.
+El archivo de audio "play.mp3" debe sonar siempre que el temporizador se inicie.
+El archivo de audio "pause.mp3" debe sonar siempre que el temporizador se detenga.
+
+
+
+Pudiste resolver el desafío? ¡Espero que sí! :
+
+Aquí está la forma en que lo hice:
+
+Primero, para cada archivo de audio, es necesario crear una instancia del objeto Audio y guardarlas en variables. Entonces, hice lo siguiente:
+
+const audioPlay = new Audio('./sonidos/play.wav');
+const audioPausa = new Audio('./sonidos/pause.mp3');
+const audioTiempoFinalizado = new Audio('./sonidos/beep.mp3')
+
+Después, llamé a "audioTiempoFinalizado " dentro de la función `cuentaRegresiva()`
+
+const cuentaRegresiva = () => {
+    if(tiempoTranscurridoEnSegundos <= 0) {
+        audioTiempoFinalizado .play()  <<<<<<<<
+        alert('Tiempo finalizado')
+        reiniciar()
+        return
+    }
+    tiempoTranscurridoEnSegundos -= 1
+    console.log('Tiempo: ' + tiempoTranscurridoEnSegundos) // Muestra el tiempo actual
+    console.log('Id: ' + intervaloId) // Muestra el ID actual
+}
+COPIA EL CÓDIGO
+Y por último, llamé a "audioPausa" y "audioPlay" dentro de la función iniciarOuPausar()
+
+function iniciarPausar() {
+    if (intervaloId) {
+        audioPausa.play();  <<<<<<<
+        reiniciar()
+        return // retorno anticipado -- circuit breaker
+    }
+    audioPlay.play();  <<<<<<<
+    intervaloId = setInterval(cuentaRegresiva, 1000)
+}
+COPIA EL CÓDIGO
+
+//En el último video, les dejé el desafío de agregar sonidos al botón de comenzar. Vamos a probarlo, porque yo también lo hice. Voy a hacer clic en el botón de comenzar. Funcionó el sonido de iniciar, pausar y también el sonido final.
+
+¿Cómo lo hice? Lo hice utilizando el objeto Audio que ya habíamos utilizado para la variable musica. Lo que hice fue declarar tres variables más y utilizar nuevamente los métodos play (reproducir) y pause (pausar).
+
+En nuestra función cuentaRegresiva, noté que hay un ajuste que podemos hacer, que es mover esta llamada a la función reiniciar debajo del alert de tiempo final.
+
+Ahora, ¿cuál es nuestra misión en este video? Quiero que cambie el texto del botón de comenzar, porque cuando comienzo tengo la opción de pausar nuestra cuenta regresiva. Entonces, este texto también tiene que cambiar cuando quiera pausar. De "Comenzar" a "Pausar", y después de "Pausar" a "Comenzar" - quiero que este texto cambie de esta manera.
+
+Para esto, vamos a nuestro index.html. Acá tenemos nuestro botón de comenzar, ya lo hemos utilizado y vamos a seguir utilizándolo, solo que ahora con el id junto a esta etiqueta de <span>, donde está el texto "Comenzar".
+
+Nuevamente, vamos a script.js y declaramos una variable, const textoIniciarPausar = document.querySelector(), los paréntesis, las comillas. Ahora voy a copiar este #start-pause que ya tenemos acá. Y también quiero utilizar la etiqueta, entonces, voy a poner un span.
+
+Vamos nuevamente a nuestra función cuentaRegresiva, porque tenemos dos momentos en los que queremos cambiar este texto. Primero está en "Comenzar" y queremos que el texto cambie a "Pausar". Este es el primer momento en el que queremos cambiar este texto.
+
+Vamos a utilizar nuestra variable textoIniciarPausar y hacer un .textContent y atribuirle el valor de "Pausar". Este .textContent lo utilizamos cuando queremos agregar texto a nuestro HTML.
+
+¿Y cuál es la diferencia entre innerHTML y textContent? Les explicaré esto pronto, pero primero vamos a probar si realmente está funcionando. Vamos a nuestro navegador. Entonces, voy a presionar "Comenzar" y mira, cambia a "Pausar". Pero ahora tenemos que hacer este segundo cambio que es de "Pausar" a "Comenzar" nuevamente.
+
+Entonces, vamos a nuestra función de reiniciar. Hagamos lo mismo, textoIniciarPausar.textContent, pero ahora le voy a atribuir el texto de "Comenzar", entre comillas.
+
+Volvamos nuevamente a nuestro navegador y hagamos clic en el botón. El texto se alterna entre "Comenzar" y "Pausar". Muy bien, funcionó de la manera que necesitábamos. Ahora sí podemos pensar cuál es la diferencia entre utilizar textContent y innerHTML.
+
+Vamos a donde utilizamos innerHTML, que es nuestro switch-case. Acá ustedes se van a dar cuenta de que, en innerHTML, utilizamos el texto junto a etiquetas HTML. Y esta es la diferencia, no puedo utilizar etiquetas con textContent.
+
+Entonces, vamos a hacer una prueba para verificar si realmente, de hecho, estoy diciendo la verdad. Voy a copiar esta etiqueta <strong> y voy a ponerla aquí en el texto "Pausar". Entonces, voy a quitar esta clase de <strong> y voy a utilizar los cierres de la etiqueta.
+
+Vamos a ver cómo sale esto acá en nuestro navegador. La idea es que todo aparezca en negrita como el texto "sumérgete en lo que importa". Vamos a ver si de hecho funciona. No funciona, porque el texto del botón aparece con <strong>Pausar</strong>. La etiqueta, textContent se la entiende como texto.
+
+Entonces, textContent comprende todo como texto, mientras innerHTML comprende las etiquetas, las variables JavaScript, si utilizamos Template String y el texto. Entonces, si solo quiero que aparezca un texto, utilizo textContent. Si quiero que aparezca texto, HTML o JavaScript, utilizamos innerHTML.
+
+Entonces, voy a borrar esta etiqueta de "Pausar". Y una cosa que noté y creo que será un reto para ustedes, es que el ícono del botón no cambia cuando cambio de "Comenzar" a "Pausar". Pero, yo quiero que este ícono cambie.
+
+¿Y qué van a hacer ustedes? Utilizando esta carpeta de imágenes, tenemos acá una imagen de pause.png y play_arrow.png. Ustedes van a agregar estas dos imágenes en este botón como un desafío.
+
+Eso es todo por este video, nos vemos en el próximo.
+
+const textoIniciarPuasar = document.querySelector ('#start-pause span')
+
+
+function iniciarPausar(){
+    if(idIntervalo){
+        audioPausa.play();
+        reiniciar()
+        return
+    }
+
+    audioPlay.play();
+    idIntervalo = setInterval(cuentaRegresiva,1000)
+}
+
+function reiniciar (){
+    clearInterval(idIntervalo)
+    idIntervalo = null 
+    textoIniciarPuasar.textContent= "Comenzar"
+}
+
+//Yo, así como que ustedes, he agregado los ícones que faltaban. Entonces, vamos a hacer la prueba. Ahí está el ícone de pausar y el ícone de comenzar sigue siendo el mismo.
+
+¿Cuál es el próximo paso en nuestro proyecto? Vamos a mirar al Figma. Ustedes pueden notar que nos falta algo, porque entre los botones de enfoque, descanso corto y largo, y este toggle de música, nos falta imprimir en la pantalla nuestra cuenta regresiva. Todavía no lo tenemos en nuestro proyecto. Entonces, eso es lo que vamos a hacer en este video.
+
+¿En qué parte de nuestro HTML vamos a incluir este número que va a ser impreso? No hay nada en esta <div> que tiene como ID el timer. Entonces, es acá donde vamos a incluir la cuenta regresiva. Porque está entre el toggle de música y los botones de enfoque, descanso corto y descanso largo.
+
+Entonces, vamos a utilizar este id="timer" y vamos a crear una variable. En script.js, escribimos const tiempoEnPantalla y hacer un document.querySelector y utilizar nuestro ID, #timer.
+
+¿Y qué haremos? Quiero crear una función nuevamente para mostrar el tiempo. Entonces, vamos a poner este nombre en la función, function mostrarTiempo con paréntesis y llaves. ¿Y qué vamos a hacer acá dentro? Vamos a hacer un const tiempo igual a tiempoTranscurridoEnSegundos que era nuestra variable que está allí arriba.
+
+Ahora, vamos a hacer un tiempoEnPantalla.innerHTML. Entonces, vamos a incluir algo en nuestro HTML utilizando innerHTML. Y acá vamos a utilizar template strings. Pongamos entonces el estímulo de dólar ($) con llaves y nuestra variable, tiempo.
+
+¿Dónde quiero llamar la función mostrarTiempo? En la cuenta regresiva. Entonces, en nuestra función cuentaRegresiva donde hay este console.log, llamemos la función mostrarTiempo.
+
+Vamos a ver si de hecho funcionó. Entonces, si yo presiono "Comenzar", vamos a ver si aparece ahí. Sí, aparece la cuenta. Pero, si actualizo esta página, la cuenta no aparece más. Quiero que este número siempre esté impreso en la pantalla.
+
+Entonces, también voy a llamar esta función mostrarTiempo al final del archivo. Miren, ahora sí está apareciendo siempre este contador.
+
+Además, quiero que aparezca acá 25 minutos. Entonces, podemos cambiar el valor de nuestra variable tiempoTranscurridoEnSegundos. En lugar de poner 5, vamos a poner 1500 que es igual a 25 minutos.
+
+Vamos a ver si sale en la pantalla. ¡Muy bien! Pero todavía esto no está formateado como un reloj. Necesitamos hacer este formateo en el próximo video.
+
+
+const tiempoEnPantalla = document.querySelector('#timer')
+
+botonIniciarPausar.addEventListener('click', iniciarPausar )
+
+function iniciarPausar(){
+    if(idIntervalo){
+        audioPausa.play();
+        reiniciar()
+        return
+    }
+
+    audioPlay.play();
+    idIntervalo = setInterval(cuentaRegresiva,1000)
+}
+
+function reiniciar (){
+    clearInterval(idIntervalo)
+    idIntervalo = null 
+    textoIniciarPuasar.textContent= "Comenzar"
+}
+
+function mostrarTiempo () {
+const tiempo = tiempoTransucrridoEnSegundos
+tiempoEnPantalla.innerHTML = `${tiempo}`
+}
+
+mostrarTiempo ()
+
+
+Ahora tenemos que formatear nuestro temporizador, nuestra cuenta regresiva. ¿Y cómo lo vamos a hacer?
+
+En Visual Studio Code, vamos a instanciar un objeto de JavaScript en la función mostrarTiempo. En const tiempo, vamos a escribir new y poner el objeto que es Date. Este objeto se utiliza para manejar fechas y horas. Podemos, o no, pasarle un parámetro. En nuestro caso, vamos a pasar esta variable tiempoTranscurridoEnSegundos.
+
+Y este objeto, Date, necesita que la hora esté en milisegundos. Si recuerdan, nuestra variable tiempoTranscurridoEnSegundos, tiene el valor de 1500 segundos, que equivale a 25 minutos. Entonces, hay que transformar de segundos a milisegundos. ¿Y cómo hacemos esto? Multiplicándola por 1000.
+
+En la siguiente línea, voy a declarar otra variable. Entonces, const se llamará tiempoFormateado. Y acá, voy a agarrar esta variable tiempo y añadirle un punto. Ustedes verán varias sugestiones de métodos. Estos son todos los métodos del objeto Date. Vamos a utilizar este método toLocaleTimeString, que formatea la hora de acuerdo con la región que una persona elija. Entonces, voy a elegir México. Entonces, entre comillas, voy a poner es-MX abreviado.
+
+Ahora, tenemos que elegir el formato de la hora. Entonces, voy a poner una coma, abrir las llaves y poner minute, dos puntos, abrir las comillas y decirle 2-digit. Básicamente, los minutos van a tener dos dígitos. Después de las comillas, voy a utilizar otra coma y hacer lo mismo con second:'2-digit'. Es decir, los segundos también van a tener dos dígitos.
+
+Ahora, en esta función, solo falta cambiar esta variable tiempo que tiempoEnPantalla.innerHTML está recibiendo por tiempoFormateado. Entonces, lo hacemos acá y listo.
+
+Vamos a ver si, de hecho, está formateada nuestra cuenta regresiva. Sí, lo está, pero hay un problema. Vamos a hacer clic en todos los botones. Enfoque está con 25 minutos. Descanso corto está con 25 minutos. Descanso largo está con 25 minutos. No es lo que queremos. Queremos que cada uno de estos botones reciba una hora distinta.
+
+Entonces, vamos a abrir nuestro proyecto de Figma. Enfoque va a tener 25 minutos, pero descanso corto va a tener 5 minutos y descanso largo, 15 minutos.
+
+Tenemos que hacer estos ajustes. Pero eso es muy fácil. ¿Qué vamos a hacer? Vamos a copiar esta variable tiempoTranscurridoEnSegundos y en el addEventListener de cada botón, vamos a poner el tiempo necesario.
+
+En el botonCorto, vamos a poner tiempoTranscurridoEnSegundos, igual, y vamos a hacer una cuenta. Como el botón corto es 5 minutos, vamos a hacer 5 veces 60, que es 300.
+
+Ahora, vamos a hacer lo mismo con el botonEnfoque, pero ya tenemos el valor para el enfoque. Solo hay que poner tiempoTranscurridoEnSegundos igual a 1500.
+
+Ahora, solo falta botonLargo, que vamos a poner tiempoTranscurridoEnSegundos igual, y hacemos la cuenta nuevamente. Entonces, el tiempo es 15 minutos veces 60, que es igual a 900.
+
+Vamos a ver si, de hecho, sale. Creo que no va a salir. Falta algo, pero vamos a probarlo. Sí, todavía no sabe. ¿Por qué? Porque nos falta cambiar el contexto. Tenemos una función que cambia el contexto. Entonces, lo que necesitamos hacer es llamar a la función mostrarTiempo en la función cambiarContexto.
+
+De nuevo, vamos a hacer nuestra prueba. En enfoque, 25 minutos. En descanso corto, 5 minutos. En descanso largo, 15 minutos. Todo está listo en nuestro proyecto.
+
+Podemos probar el botón de descanso largo. Entonces, vamos a presionar "Comenzar" y "Pausar". Podemos hacer lo mismo con el descanso corto. Funcionó. En enfoque. Listo.
+
+Entonces, alcanzamos nuestro objetivo. Estoy muy contenta. Espero que hayan aprendido mucho. Y nos vemos en el próximo video para despedirnos de este curso.
+
+
+botonCorto.addEventListener('click', () => {
+    tiempoTransucrridoEnSegundos = 300
+    cambiarContexto('descanso-corto')
+    botonCorto.classList.add('active')
+});
+
+botonEnfoque.addEventListener('click', () => {
+    tiempoTransucrridoEnSegundos = 1500
+    cambiarContexto('enfoque')
+    botonEnfoque.classList.add('active')
+});
+
+botonLargo.addEventListener('click', () => {
+    tiempoTransucrridoEnSegundos = 900
+    cambiarContexto('descanso-largo')
+    botonLargo.classList.add('active')
+});
+
+function cambiarContexto (contexto){
+    mostrarTiempo()
+    botones.forEach (function(contexto){
+        contexto.classList.remove('active')
+    
+    })
+
+function reiniciar (){
+    clearInterval(idIntervalo)
+    idIntervalo = null 
+    textoIniciarPuasar.textContent= "Comenzar"
+}
+
+function mostrarTiempo () {
+const tiempo = new Date(tiempoTransucrridoEnSegundos * 1000) 
+const tiempoFormateado = tiempo.toLocaleTimeString('es-MX', {minute:'2-digit', second: '2-digit'})
+tiempoEnPantalla.innerHTML = `${tiempoFormateado}`
+}
+
+mostrarTiempo ()
+
